@@ -13,11 +13,6 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * Class TaskRepository.
  *
- * @method Task|null find($id, $lockMode = null, $lockVersion = null)
- * @method Task|null findOneBy(array $criteria, array $orderBy = null)
- * @method Task[]    findAll()
- * @method Task[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- *
  * @extends ServiceEntityRepository<Task>
  *
  * @psalm-suppress LessSpecificImplementedReturnType
@@ -33,7 +28,7 @@ class TaskRepository extends ServiceEntityRepository
      *
      * @constant int
      */
-    public const PAGINATOR_ITEMS_PER_PAGE = 3;
+    public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
     /**
      * Constructor.

@@ -10,7 +10,7 @@ use App\Repository\TaskRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Serializer\Annotation\MapQueryParameter;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
@@ -28,7 +28,7 @@ class TaskController extends AbstractController
      * @return Response HTTP response
      */
     #[Route(name: 'task_index', methods: 'GET')]
-    public function index(#[MapQueryParameter] ?int $page = 1, TaskRepository $taskRepository, PaginatorInterface $paginator): Response
+        public function index(TaskRepository $taskRepository, PaginatorInterface $paginator, #[MapQueryParameter] int $page=1): Response
     {
         $pagination = $paginator->paginate(
             $taskRepository->queryAll(),

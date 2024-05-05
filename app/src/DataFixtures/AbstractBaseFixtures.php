@@ -20,5 +20,5 @@ abstract class AbstractBaseFixtures extends Fixture
         $this->loadData();
     }
 
-    abstract public function loadData(ObjectManager $manager) :void;
+    abstract protected function loadData() :void;
 }
