@@ -12,7 +12,7 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class TaskService.
  */
-class TaskService
+class TaskService implements TaskServiceInterface
 {
     /**
      * Items per page.
