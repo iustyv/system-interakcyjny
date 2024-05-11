@@ -5,6 +5,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Task;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -54,6 +55,15 @@ class TaskRepository extends ServiceEntityRepository
             )
             ->join('task.category', 'category')
             ->orderBy('task.updatedAt', 'DESC');
+    }
+
+    public function findTasksByCategory(Category $category): array
+    {
+        return $this->getOrCreateQueryBuilder()
+            ->andWhere('task.category = :category')
+            ->setParameter('category', $category)
+            ->getQuery()
+            ->getResult();
     }
 
     /**
