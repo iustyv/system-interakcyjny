@@ -15,10 +15,10 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>{{ 'label.id'|trans }}</th>
-            <th>{{ 'label.title'|trans }}</th>
-            <th>{{ 'label.created_at'|trans }}</th>
-            <th>{{ 'label.updated_at'|trans }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'category.id') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'category.title') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'category.createdAt') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'category.updatedAt') }}</th>
             <th scope="col">
                 {{ 'label.actions'|trans }}
             </th>
