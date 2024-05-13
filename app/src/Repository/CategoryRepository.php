@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -22,6 +23,13 @@ class CategoryRepository extends ServiceEntityRepository
     public function queryAll():QueryBuilder
     {
         return $this->getOrCreateQueryBuilder();
+    }
+
+    public function save(Category $category): void
+    {
+        assert($this->_em instanceof EntityManager);
+        $this->_em->persist($category);
+        $this->_em->flush();
     }
 
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null):QueryBuilder

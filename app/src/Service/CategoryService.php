@@ -3,8 +3,11 @@
 namespace App\Service;
 
 use App\Repository\CategoryRepository;
+use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Entity\Category;
 
 class CategoryService implements CategoryServiceInterface
 {
@@ -28,5 +31,20 @@ class CategoryService implements CategoryServiceInterface
             $page,
             self::PAGINATOR_ITEMS_PER_PAGE
         );
+    }
+
+    /**
+     * Save entity.
+     *
+     * @param Category $category Category entity
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function save(Category $category): void
+    {
+        $category->setCreatedAt(new \DateTimeImmutable());
+        $category->setUpdatedAt(new \DateTimeImmutable());
+        $this->categoryRepository->save($category);
     }
 }
