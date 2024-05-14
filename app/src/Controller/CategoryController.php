@@ -11,11 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Form\Type\CategoryType;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/category')]
 class CategoryController extends AbstractController
 {
-    public function __construct(private readonly CategoryServiceInterface $categoryService, private readonly TaskRepository $taskRepository)
+    public function __construct(private readonly CategoryServiceInterface $categoryService, private readonly TranslatorInterface $translator, private readonly TaskRepository $taskRepository)
     {}
 
     #[Route(name: 'category_index', methods: 'GET')]
@@ -43,6 +44,8 @@ class CategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->categoryService->save($category);
+
+            $this->addFlash('success', $this->translator->trans('message.created_successfully'));
 
             return $this->redirectToRoute('category_index');
         }
