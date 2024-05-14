@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Repository\TaskRepository;
 use App\Service\CategoryServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
@@ -25,7 +26,7 @@ class CategoryController extends AbstractController
         return $this->render('category/index.html.twig', ['pagination' => $pagination]);
     }
 
-    #[Route('/{id}', name: 'category_show', methods: 'GET')]
+    #[Route('/{id}', name: 'category_show', requirements: ['id' => '[1-9]\d*'], methods: 'GET')]
     public function show(Category $category): Response
     {
         $tasks = $this->taskRepository->findTasksByCategory($category);
@@ -33,11 +34,7 @@ class CategoryController extends AbstractController
         return $this->render('category/show.html.twig', ['category' => $category, 'tasks' => $tasks]);
     }
 
-    #[Route(
-        '/create',
-        name: 'category_create',
-        methods: 'GET|POST',
-    )]
+    #[Route('/create', name: 'category_create', methods: 'GET|POST')]
     public function create(Request $request): Response
     {
         $category = new Category();
